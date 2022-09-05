@@ -20,23 +20,25 @@ struct PhotoViewOverlay: View {
 }
 
 struct MainListItem: View {
-    var image: Image
+    var url: URL?
     var title: String
     var body: some View {
         Button(action: { },
                label: {
-            ZStack {
-                image
-                    .background(.blue)
-            }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, maxHeight: 150)
+                AsyncImage(url: url,
+                           content: { $0.resizable().padding(0) },
+                           placeholder: { Text("loading ...") })
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
         })
+        .padding(0)
         .overlay(PhotoViewOverlay(text: title), alignment: .bottomLeading)
+        .buttonStyle(.plain)
     }
 }
 
 struct PhotoView_Previews: PreviewProvider {
     static var previews: some View {
-        MainListItem(image: Image("CERO"), title: "Test_title")
+        let url = URL(string: "some_string_url")
+        MainListItem(url: url, title: "Test Title")
     }
 }

@@ -13,13 +13,7 @@ struct Photo: Codable, Hashable {
     var secret: String
     var server: String
     var title: String
-    var url: String {
-        // TODO: Implement this URL & add fetch mechanism
-        let baseUrl = "base.com"
-        let params = "/image/\(id)"
-        return baseUrl + params
+    var url: URL? {
+        URL(string: "https://live.staticflickr.com/\(server)/\(id)_\(secret).jpg")
     }
-    
-    // TODO: Implement placeholder + fetch image as observable, maybe? So while fetching show placeholder,
-    // and then update on completion.
 }

@@ -21,8 +21,8 @@ struct MainListView: View {
                 ForEach(gallery?.photos ?? [], id: \.self) { element in
                     if currentSearchText.isEmpty || element.title.lowercased().contains(currentSearchText.lowercased()) {
                         let photo: Photo = aux.removeFirst()
-                        let image = Image(photo.url)
-                        MainListItem(image: image, title: photo.title)
+                        MainListItem(url: photo.url, title: photo.title)
+                            .padding(15)
                     }
                 }
             }
