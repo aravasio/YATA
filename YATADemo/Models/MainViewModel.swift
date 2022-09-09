@@ -30,7 +30,7 @@ class MainViewModel: ObservableObject {
     
     private let baseUrl: String = "https://www.flickr.com/services/rest"
     private let getInterestingPhotosMethod: String = "/?method=flickr.interestingness.getList"
-    private let apiKey: String = "&api_key=5e200797f4437780ce50f890fd62c453"
+    private let apiKey: String = "&api_key=3e797d93e76acc6a616ab670e5d8a308"
     private let formatParam = "&format=json&nojsoncallback=1&per_page=50"
     private var urlPath: String {
         baseUrl + getInterestingPhotosMethod + apiKey + formatParam
