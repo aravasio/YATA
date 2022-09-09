@@ -14,8 +14,6 @@ struct GalleryPage: Codable, Hashable {
     var total: Int
     var photos: [Photo]
     
-//    var magic: [Int] = []
-    
     enum CodingKeys: String, CodingKey {
         case pageNumber = "page"
         case pages

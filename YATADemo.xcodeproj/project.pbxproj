@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57B1040828CBB19600E96B82 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B1040728CBB19600E96B82 /* Request.swift */; };
+		57B1040B28CBB20100E96B82 /* MainViewModelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B1040A28CBB20100E96B82 /* MainViewModelRequest.swift */; };
+		57B1040D28CBB23700E96B82 /* MainViewModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B1040C28CBB23700E96B82 /* MainViewModelResponse.swift */; };
 		57B7025628BDD05500311FC8 /* YATADemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B7025528BDD05500311FC8 /* YATADemoApp.swift */; };
 		57B7025828BDD05500311FC8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B7025728BDD05500311FC8 /* MainView.swift */; };
 		57B7025A28BDD05600311FC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57B7025928BDD05600311FC8 /* Assets.xcassets */; };
@@ -17,9 +20,13 @@
 		57BBE9C428C5C821002D975E /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBE9C328C5C821002D975E /* RequestManager.swift */; };
 		57BBE9C628C5D445002D975E /* GalleryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBE9C528C5D445002D975E /* GalleryPage.swift */; };
 		57BBE9C928C5E364002D975E /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBE9C828C5E364002D975E /* MainViewModel.swift */; };
+		57BBE9CD28CBAFF8002D975E /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBE9CC28CBAFF8002D975E /* Array+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		57B1040728CBB19600E96B82 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		57B1040A28CBB20100E96B82 /* MainViewModelRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelRequest.swift; sourceTree = "<group>"; };
+		57B1040C28CBB23700E96B82 /* MainViewModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelResponse.swift; sourceTree = "<group>"; };
 		57B7025228BDD05500311FC8 /* YATADemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YATADemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57B7025528BDD05500311FC8 /* YATADemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YATADemoApp.swift; sourceTree = "<group>"; };
 		57B7025728BDD05500311FC8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -31,6 +38,7 @@
 		57BBE9C328C5C821002D975E /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 		57BBE9C528C5D445002D975E /* GalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryPage.swift; sourceTree = "<group>"; };
 		57BBE9C828C5E364002D975E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		57BBE9CC28CBAFF8002D975E /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +52,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57B1040928CBB1D100E96B82 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				57BBE9C828C5E364002D975E /* MainViewModel.swift */,
+				57B1040A28CBB20100E96B82 /* MainViewModelRequest.swift */,
+				57B1040C28CBB23700E96B82 /* MainViewModelResponse.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
 		57B7024928BDD05500311FC8 = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +81,7 @@
 		57B7025428BDD05500311FC8 /* YATADemo */ = {
 			isa = PBXGroup;
 			children = (
+				57BBE9CC28CBAFF8002D975E /* Array+Extensions.swift */,
 				57BBE9C728C5E302002D975E /* Network */,
 				57B7027528C5982F00311FC8 /* Models */,
 				57B7026528BDD09F00311FC8 /* Views */,
@@ -110,9 +129,10 @@
 		57B7027528C5982F00311FC8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				57B1040728CBB19600E96B82 /* Request.swift */,
 				57B7027628C5983A00311FC8 /* Photo.swift */,
 				57BBE9C528C5D445002D975E /* GalleryPage.swift */,
-				57BBE9C828C5E364002D975E /* MainViewModel.swift */,
+				57B1040928CBB1D100E96B82 /* MainView */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -196,12 +216,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				57B7025828BDD05500311FC8 /* MainView.swift in Sources */,
+				57BBE9CD28CBAFF8002D975E /* Array+Extensions.swift in Sources */,
 				57BBE9C428C5C821002D975E /* RequestManager.swift in Sources */,
 				57BBE9C628C5D445002D975E /* GalleryPage.swift in Sources */,
 				57B7026728BEC28F00311FC8 /* MainListView.swift in Sources */,
+				57B1040B28CBB20100E96B82 /* MainViewModelRequest.swift in Sources */,
 				57B7027328C208D100311FC8 /* MainListItem.swift in Sources */,
 				57B7025628BDD05500311FC8 /* YATADemoApp.swift in Sources */,
+				57B1040828CBB19600E96B82 /* Request.swift in Sources */,
 				57B7027728C5983A00311FC8 /* Photo.swift in Sources */,
+				57B1040D28CBB23700E96B82 /* MainViewModelResponse.swift in Sources */,
 				57BBE9C928C5E364002D975E /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

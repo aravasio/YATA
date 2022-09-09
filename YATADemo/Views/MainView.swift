@@ -8,8 +8,6 @@
 import SwiftUI
 import Combine
 
-
-
 enum MainSegmentedControlSelection: String, CaseIterable {
     case feed = "FEED"
     case search = "SEARCH"
@@ -28,12 +26,14 @@ struct MainView: View {
                     // traer la data y agregarla a la coleccion.
                 }
                 .background(Color.red)
+                
                 Picker("Segmented Control", selection: $currentSegment) {
                     ForEach(MainSegmentedControlSelection.allCases, id: \.self) {
                         Text($0.rawValue)
                     }
                 }
                 .pickerStyle(.segmented)
+                
                 mainList
             }
         }

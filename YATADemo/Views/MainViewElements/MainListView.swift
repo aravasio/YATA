@@ -30,7 +30,8 @@ struct MainListView: View {
     }
     
     var searchableFeedList: some View {
-        feedList
+        Text("que copado todo esto")
+//        feedList
         /// Some UI / Scroll / VoiceInput issues
         /// better luck later on.
 //            .searchable(text: $currentSearchText, prompt: "type something to search")
