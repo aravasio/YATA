@@ -22,6 +22,12 @@ struct MainView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Group {
+                Button("DEBUG") {
+                    viewModel.didTapDebug()
+                    // mover la pagina en 1
+                    // traer la data y agregarla a la coleccion.
+                }
+                .background(Color.red)
                 Picker("Segmented Control", selection: $currentSegment) {
                     ForEach(MainSegmentedControlSelection.allCases, id: \.self) {
                         Text($0.rawValue)
@@ -35,7 +41,7 @@ struct MainView: View {
     
     var mainList: some View {
         ScrollView {
-            MainListView(listStyle: $currentSegment, gallery: $viewModel.gallery)
+            MainListView(listStyle: $currentSegment, photos: $viewModel.photos)
         }
     }
 }

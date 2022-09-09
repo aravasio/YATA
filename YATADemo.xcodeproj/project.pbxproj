@@ -15,7 +15,7 @@
 		57B7027328C208D100311FC8 /* MainListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B7027228C208D100311FC8 /* MainListItem.swift */; };
 		57B7027728C5983A00311FC8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B7027628C5983A00311FC8 /* Photo.swift */; };
 		57BBE9C428C5C821002D975E /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBE9C328C5C821002D975E /* RequestManager.swift */; };
-		57BBE9C628C5D445002D975E /* Gallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBE9C528C5D445002D975E /* Gallery.swift */; };
+		57BBE9C628C5D445002D975E /* GalleryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBE9C528C5D445002D975E /* GalleryPage.swift */; };
 		57BBE9C928C5E364002D975E /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBE9C828C5E364002D975E /* MainViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,7 +29,7 @@
 		57B7027228C208D100311FC8 /* MainListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListItem.swift; sourceTree = "<group>"; };
 		57B7027628C5983A00311FC8 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		57BBE9C328C5C821002D975E /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
-		57BBE9C528C5D445002D975E /* Gallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gallery.swift; sourceTree = "<group>"; };
+		57BBE9C528C5D445002D975E /* GalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryPage.swift; sourceTree = "<group>"; };
 		57BBE9C828C5E364002D975E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				57B7027628C5983A00311FC8 /* Photo.swift */,
-				57BBE9C528C5D445002D975E /* Gallery.swift */,
+				57BBE9C528C5D445002D975E /* GalleryPage.swift */,
 				57BBE9C828C5E364002D975E /* MainViewModel.swift */,
 			);
 			path = Models;
@@ -197,7 +197,7 @@
 			files = (
 				57B7025828BDD05500311FC8 /* MainView.swift in Sources */,
 				57BBE9C428C5C821002D975E /* RequestManager.swift in Sources */,
-				57BBE9C628C5D445002D975E /* Gallery.swift in Sources */,
+				57BBE9C628C5D445002D975E /* GalleryPage.swift in Sources */,
 				57B7026728BEC28F00311FC8 /* MainListView.swift in Sources */,
 				57B7027328C208D100311FC8 /* MainListItem.swift in Sources */,
 				57B7025628BDD05500311FC8 /* YATADemoApp.swift in Sources */,
