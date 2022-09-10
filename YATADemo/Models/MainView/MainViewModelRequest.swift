@@ -21,25 +21,33 @@ class MainViewModelRequest: Request {
         "&per_page=\(perPage)"
     }
     var currentPageParam: String {
-        let pageNumber = page?.pageNumber ?? 1
         return "&page=\(pageNumber)"
     }
 
-    private var startPage: Int
-    private var perPage: Int
+    private let startPage: Int
+    private let perPage: Int
+    private var pageNumber: Int
     
     private var urlPath: String {
         baseUrl + method + apiKey + extrasParam + perPageParam + currentPageParam + formatParam
     }
     
+    private var hasNextpage: Bool {
+        let totalPages = page?.pages ?? 0
+        return pageNumber + 1 <= totalPages
+    }
+    
     init(startPage: Int, perPage: Int) {
         self.startPage = startPage
+        self.pageNumber = startPage
         self.perPage = perPage
     }
     
     func next() {
-        page?.pageNumber += 1
-        fetch()
+        if hasNextpage {
+            pageNumber += 1
+            fetch()
+        }
     }
     
     func fetch() {
@@ -49,6 +57,7 @@ class MainViewModelRequest: Request {
             })
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [unowned self] response in
+                print(response.page.pageNumber)
                 self.page = response.page
             })
             .store(in: &cancellables)
@@ -61,5 +70,9 @@ class MainViewModelRequest: Request {
         return RequestAPI.run(request)
             .map(\.value)
             .eraseToAnyPublisher()
+    }
+    
+    func loadArticles() async {
+        if Task.isCancelled { return }
     }
 }

@@ -16,22 +16,19 @@ class MainViewModel: ObservableObject {
     var request = MainViewModelRequest(startPage: 1, perPage: 5)
     
     init() {
-        request.fetch()
         request
             .$page
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] page in
                 guard let newPhotos = page?.photos else { return }
-                self?.photos.appendDistinct(contentsOf: newPhotos, where: { (first, second) in
-                    first.id != second.id
-                })
-//                self!.photos.append(contentsOf: newPhotos)
+                self!.photos.append(contentsOf: newPhotos)
             })
             .store(in: &cancellable)
     }
     
-    func didTapDebug() {
-        request.next()
+    func fetch() {
+        photos.isEmpty ? request.fetch() : request.next()
     }
+
 }
 

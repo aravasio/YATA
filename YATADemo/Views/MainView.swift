@@ -21,9 +21,7 @@ struct MainView: View {
         VStack(alignment: .leading) {
             Group {
                 Button("DEBUG") {
-                    viewModel.didTapDebug()
-                    // mover la pagina en 1
-                    // traer la data y agregarla a la coleccion.
+                    viewModel.fetch()
                 }
                 .background(Color.red)
                 
@@ -35,14 +33,23 @@ struct MainView: View {
                 .pickerStyle(.segmented)
                 
                 mainList
+                    .onAppear {
+                        viewModel.fetch()
+                    }
             }
         }
     }
     
     var mainList: some View {
         ScrollView {
-            MainListView(listStyle: $currentSegment, photos: $viewModel.photos)
+            MainListView(listStyle: $currentSegment,
+                         photos: $viewModel.photos)
         }
+    }
+    
+    @Sendable
+    private func loadData() async {
+        //await articleNewsVM.loadArticles()
     }
 }
 

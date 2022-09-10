@@ -11,16 +11,17 @@ struct MainListView: View {
     @Binding var listStyle: MainSegmentedControlSelection
     @Binding var photos: [Photo]
     @State private var currentSearchText: String = ""
-    
     @State private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
-
+        
     var feedList: some View {
         ScrollView {
             LazyVGrid(columns: gridItemLayout, spacing: 5) {
-                var aux = photos
-                ForEach(photos, id: \.id) { element in
-                    if currentSearchText.isEmpty || element.title.lowercased().contains(currentSearchText.lowercased()) {
-                        let photo: Photo = aux.removeFirst()
+                ForEach(photos, id: \.id) { photo in
+                    if let last = photos.last, photo.id == last.id {
+                        MainListItem(url: photo.url, title: photo.title)
+                            .padding(15)
+                            .background(Color.red)
+                    } else {
                         MainListItem(url: photo.url, title: photo.title)
                             .padding(15)
                     }
