@@ -13,18 +13,21 @@ struct MainListView: View {
     @State private var currentSearchText: String = ""
     @State private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
         
+    var nextPageHandler: (() -> ())? = nil
+    
     var feedList: some View {
-        ScrollView {
-            LazyVGrid(columns: gridItemLayout, spacing: 5) {
-                ForEach(photos, id: \.id) { photo in
-                    if let last = photos.last, photo.id == last.id {
-                        MainListItem(url: photo.url, title: photo.title)
-                            .padding(15)
-                            .background(Color.red)
-                    } else {
-                        MainListItem(url: photo.url, title: photo.title)
-                            .padding(15)
-                    }
+        LazyVGrid(columns: gridItemLayout, spacing: 5) {
+            ForEach(photos, id: \.id) { photo in
+                if let last = photos.last, photo.id == last.id {
+                    MainListItem(url: photo.url, title: photo.title)
+                        .padding(15)
+                        .background(Color.red)
+                        .onAppear {
+                            nextPageHandler?()
+                        }
+                } else {
+                    MainListItem(url: photo.url, title: photo.title)
+                        .padding(15)
                 }
             }
         }

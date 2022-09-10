@@ -20,11 +20,6 @@ struct MainView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Group {
-                Button("DEBUG") {
-                    viewModel.fetch()
-                }
-                .background(Color.red)
-                
                 Picker("Segmented Control", selection: $currentSegment) {
                     ForEach(MainSegmentedControlSelection.allCases, id: \.self) {
                         Text($0.rawValue)
@@ -43,13 +38,11 @@ struct MainView: View {
     var mainList: some View {
         ScrollView {
             MainListView(listStyle: $currentSegment,
-                         photos: $viewModel.photos)
+                         photos: $viewModel.photos,
+                         nextPageHandler: {
+                self.viewModel.fetch()
+            })
         }
-    }
-    
-    @Sendable
-    private func loadData() async {
-        //await articleNewsVM.loadArticles()
     }
 }
 

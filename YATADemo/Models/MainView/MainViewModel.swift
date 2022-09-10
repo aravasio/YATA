@@ -13,7 +13,7 @@ class MainViewModel: ObservableObject {
     @Published var photos: [Photo] = []
     
     var cancellable = Set<AnyCancellable>()
-    var request = MainViewModelRequest(startPage: 1, perPage: 5)
+    var request = MainViewModelRequest(startPage: 1, perPage: 10)
     
     init() {
         request

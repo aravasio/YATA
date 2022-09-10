@@ -57,7 +57,6 @@ class MainViewModelRequest: Request {
             })
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [unowned self] response in
-                print(response.page.pageNumber)
                 self.page = response.page
             })
             .store(in: &cancellables)
