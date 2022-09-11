@@ -39,9 +39,7 @@ struct MainView: View {
         ScrollView {
             MainListView(listStyle: $currentSegment,
                          photos: $viewModel.photos,
-                         nextPageHandler: {
-                self.viewModel.fetch()
-            })
+                         onLastItemAppeared: { self.viewModel.fetch() })
         }
     }
 }
