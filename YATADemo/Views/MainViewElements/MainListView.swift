@@ -18,12 +18,16 @@ struct MainListView: View {
     var feedList: some View {
         LazyVGrid(columns: gridItemLayout, spacing: 5) {
             ForEach(photos, id: \.id) { photo in
-                let title = "\(photo.title) |:| \(photo.dateTaken)"
-                MainListItem(url: photo.url, title: title, author: photo.ownerName)
-                    .padding(15)
-                    .onAppear {
-                        onLastItemAppeared?()
-                    }
+                if let last = photos.last, photo.id == last.id {
+                    MainListItem(url: photo.url, title: photo.title, author: photo.ownerName)
+                        .padding(15)
+                        .onAppear {
+                            onLastItemAppeared?()
+                        }
+                } else {
+                    MainListItem(url: photo.url, title: photo.title, author: photo.ownerName)
+                        .padding(15)
+                }
             }
         }
     }
