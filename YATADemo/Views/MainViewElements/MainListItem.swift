@@ -8,20 +8,29 @@
 import SwiftUI
 
 struct PhotoViewOverlay: View {
-    var text: String
+    var title: String
+    var author: String
     var body: some View {
-        Text(text)
-            .font(.callout)
-            .padding(15)
-            .background(.black.opacity(0.4))
-            .padding(15)
-            .foregroundColor(.white)
+        VStack(alignment: .leading, spacing: 0) {
+            Text(title)
+                .font(.callout)
+                .padding(15)
+                .background(.black.opacity(0.4))
+                .foregroundColor(.white)
+            
+            Text(author)
+                .font(.callout)
+                .padding(15)
+                .background(.black.opacity(0.4))
+                .foregroundColor(.white)
+        }
     }
 }
 
 struct MainListItem: View {
     var url: URL?
     var title: String
+    var author: String
     var body: some View {
         Button(action: { },
                label: {
@@ -31,7 +40,7 @@ struct MainListItem: View {
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
         })
         .padding(0)
-        .overlay(PhotoViewOverlay(text: title), alignment: .bottomLeading)
+        .overlay(PhotoViewOverlay(title: title, author: author), alignment: .bottomLeading)
         .buttonStyle(.plain)
     }
 }
@@ -39,6 +48,6 @@ struct MainListItem: View {
 struct PhotoView_Previews: PreviewProvider {
     static var previews: some View {
         let url = URL(string: "some_string_url")
-        MainListItem(url: url, title: "Test Title")
+        MainListItem(url: url, title: "Some Lorem Ipsum Generic Title", author: "AUTHOR NAME")
     }
 }

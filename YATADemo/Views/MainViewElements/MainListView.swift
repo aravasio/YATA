@@ -13,22 +13,17 @@ struct MainListView: View {
     @State private var currentSearchText: String = ""
     @State private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
         
-    var nextPageHandler: (() -> ())? = nil
+    var onLastItemAppeared: (() -> ())? = nil
     
     var feedList: some View {
         LazyVGrid(columns: gridItemLayout, spacing: 5) {
             ForEach(photos, id: \.id) { photo in
-                if let last = photos.last, photo.id == last.id {
-                    MainListItem(url: photo.url, title: photo.title)
-                        .padding(15)
-                        .background(Color.red)
-                        .onAppear {
-                            nextPageHandler?()
-                        }
-                } else {
-                    MainListItem(url: photo.url, title: photo.title)
-                        .padding(15)
-                }
+                let title = "\(photo.title) |:| \(photo.dateTaken)"
+                MainListItem(url: photo.url, title: title, author: photo.ownerName)
+                    .padding(15)
+                    .onAppear {
+                        onLastItemAppeared?()
+                    }
             }
         }
     }
@@ -52,7 +47,7 @@ struct MainListView: View {
 
 struct MainListView_Previews: PreviewProvider {
     static var previews: some View {
-        let photo = Photo(id: "1", owner: "asd", secret: "asdasdad", server: "asdasdasd", title: "Photo Test Title")
+        let photo = Photo(id: "1", owner: "asd", ownerName: "TUVIE JA", dateTaken: "9999-01-01", secret: "asdasdad", server: "asdasdasd", title: "Photo Test Title")
         let gallery = GalleryPage(pageNumber: 1, pages: 1, perpage: 1, total: 1, photos: [photo])
         MainListView(listStyle: .constant(.feed), photos: .constant(gallery.photos))
     }

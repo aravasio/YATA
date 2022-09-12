@@ -15,7 +15,7 @@ class MainViewModelRequest: Request {
     let baseUrl: String = "https://www.flickr.com/services/rest"
     let method: String = "/?method=flickr.interestingness.getList"
     let apiKey: String = "&api_key=3e797d93e76acc6a616ab670e5d8a308"
-    let extrasParam: String = "&extras=owner_name"
+    let extrasParam: String = "&extras=owner_name,date_taken"
     let formatParam = "&format=json&nojsoncallback=1"
     var perPageParam: String {
         "&per_page=\(perPage)"

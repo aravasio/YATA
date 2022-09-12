@@ -26,11 +26,10 @@ struct MainView: View {
                     }
                 }
                 .pickerStyle(.segmented)
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                 
                 mainList
-                    .onAppear {
-                        viewModel.fetch()
-                    }
+                    .onAppear { viewModel.fetch() }
             }
         }
     }
@@ -39,7 +38,7 @@ struct MainView: View {
         ScrollView {
             MainListView(listStyle: $currentSegment,
                          photos: $viewModel.photos,
-                         nextPageHandler: {
+                         onLastItemAppeared: {
                 self.viewModel.fetch()
             })
         }

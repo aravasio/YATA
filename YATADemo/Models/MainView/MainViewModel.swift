@@ -29,6 +29,5 @@ class MainViewModel: ObservableObject {
     func fetch() {
         photos.isEmpty ? request.fetch() : request.next()
     }
-
 }
 
