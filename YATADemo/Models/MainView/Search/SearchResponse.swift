@@ -14,6 +14,5 @@ struct SearchResponse: Codable {
     
     enum CodingKeys: String, CodingKey {
         case page = "photos"
-
     }
 }

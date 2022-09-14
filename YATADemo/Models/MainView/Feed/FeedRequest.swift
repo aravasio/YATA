@@ -11,7 +11,7 @@ import Combine
 class FeedRequest: Request {
     @Published var page: GalleryPage?
     var cancellables = Set<AnyCancellable>()
-
+    
     let baseUrl: String = "https://www.flickr.com/services/rest"
     let method: String = "/?method=flickr.interestingness.getList"
     let apiKey: String = "&api_key=3e797d93e76acc6a616ab670e5d8a308"
@@ -23,7 +23,7 @@ class FeedRequest: Request {
     var currentPageParam: String {
         return "&page=\(pageNumber)"
     }
-
+    
     private let startPage: Int
     private let perPage: Int
     private var pageNumber: Int
@@ -69,9 +69,5 @@ class FeedRequest: Request {
         return RequestAPI.run(request)
             .map(\.value)
             .eraseToAnyPublisher()
-    }
-    
-    func loadArticles() async {
-        if Task.isCancelled { return }
     }
 }

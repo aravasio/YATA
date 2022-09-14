@@ -11,7 +11,7 @@ import Combine
 class SearchRequest: Request {
     @Published var page: GalleryPage?
     var cancellables = Set<AnyCancellable>()
-
+    
     let baseUrl: String = "https://www.flickr.com/services/rest"
     let method: String = "/?method=flickr.photos.search"
     let apiKey: String = "&api_key=3e797d93e76acc6a616ab670e5d8a308"
@@ -27,7 +27,7 @@ class SearchRequest: Request {
         let percentEncodedString = currentQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? currentQuery
         return "&text=\(percentEncodedString)"
     }
-
+    
     private let searchJsonDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         return decoder
@@ -54,27 +54,40 @@ class SearchRequest: Request {
         self.currentQuery = ""
     }
     
-    func next() {
-//        if hasNextpage {
-//            pageNumber += 1
-//            query(currentQuery)
-//        }
-    }
-    
-    func new(query: String) async -> [Photo] {
+    func next() async -> [Photo] {
         do {
-            currentQuery = query
-            let result = try await fetch(query)
-            return result
+            if hasNextpage {
+                pageNumber += 1
+                return try await fetch(currentQuery)?.photos ?? []
+            } else {
+                pageNumber -= 1
+                return []
+            }
         }
         catch {
             print(error)
+            page = nil
             return []
         }
     }
     
-    private func fetch(_ query: String) async throws -> [Photo] {
-        guard let url = URL(string: urlPath) else { return [] }
+    func new(_ query: String) async -> [Photo] {
+        do {
+            currentQuery = query
+            return try await fetch(currentQuery)?.photos ?? []
+        }
+        catch {
+            print(error)
+            page = nil
+            return []
+        }
+    }
+    
+    private func fetch(_ query: String) async throws -> GalleryPage? {
+        guard let url = URL(string: urlPath) else {
+            throw generateError(description: "Couldn't format URL to query")
+        }
+        
         let (data, response) = try await session.data(from: url)
         
         guard let response = response as? HTTPURLResponse else {
@@ -83,7 +96,9 @@ class SearchRequest: Request {
         
         switch response.statusCode {
         case (200...299), (400...499):
-            return try JSONDecoder().decode(SearchResponse.self, from: data).page.photos
+            let result = try JSONDecoder().decode(SearchResponse.self, from: data).page
+            self.page = result
+            return result
         default:
             throw generateError(description: "A server error occured")
         }
@@ -92,5 +107,5 @@ class SearchRequest: Request {
     private func generateError(code: Int = 1, description: String) -> Error {
         NSError(domain: "NewsAPI", code: code, userInfo: [NSLocalizedDescriptionKey: description])
     }
-
+    
 }

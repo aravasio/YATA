@@ -11,7 +11,7 @@ struct SearchView: View {
     @StateObject private var viewModel = Search()
     @State private var currentSearchText: String = ""
     @State private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
-            
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: gridItemLayout, spacing: 5) {
@@ -20,7 +20,9 @@ struct SearchView: View {
                         .padding(15)
                         .onAppear {
                             if let last = viewModel.photos.last, photo.id == last.id {
-                                viewModel.fetch()
+                                Task {
+                                    await viewModel.getMorePhotos()
+                                }
                             }
                         }
                 }

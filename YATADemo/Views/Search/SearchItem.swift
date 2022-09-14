@@ -14,9 +14,9 @@ struct SearchItem: View {
     var body: some View {
         Button(action: { },
                label: {
-                AsyncImage(url: url,
-                           content: { $0.resizable().padding(0) },
-                           placeholder: { Text("loading ...") })
+            AsyncImage(url: url,
+                       content: { $0.resizable().padding(0) },
+                       placeholder: { Text("loading ...") })
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
         })
         .padding(0)

@@ -18,6 +18,7 @@ struct MainView: View {
     @State private var currentSegment: MainSegmentedControlSelection = .feed
     
     var body: some View {
+        
         VStack(alignment: .leading) {
             Picker("Segmented Control", selection: $currentSegment) {
                 ForEach(MainSegmentedControlSelection.allCases, id: \.self) {
@@ -33,6 +34,8 @@ struct MainView: View {
             case .search:
                 SearchView()
             }
+            
+            Spacer()
         }
     }
     
