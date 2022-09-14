@@ -27,7 +27,7 @@ struct PhotoViewOverlay: View {
     }
 }
 
-struct MainListItem: View {
+struct FeedItem: View {
     var url: URL?
     var title: String
     var author: String
@@ -48,6 +48,6 @@ struct MainListItem: View {
 struct PhotoView_Previews: PreviewProvider {
     static var previews: some View {
         let url = URL(string: "some_string_url")
-        MainListItem(url: url, title: "Some Lorem Ipsum Generic Title", author: "AUTHOR NAME")
+        FeedItem(url: url, title: "Some Lorem Ipsum Generic Title", author: "AUTHOR NAME")
     }
 }

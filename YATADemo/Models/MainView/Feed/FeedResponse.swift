@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-struct MainViewModelResponse: Codable {
+struct FeedResponse: Codable {
     struct Extra: Codable {
         var explore_date: String
         var next_prelude_interval: Int

@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  Feed.swift
 //  YATADemo
 //
 //  Created by Alejandro Ravasio on 05/09/2022.
@@ -9,11 +9,11 @@ import Foundation
 import Combine
 import SwiftUI
 
-class MainViewModel: ObservableObject {
+class Feed: ObservableObject {
     @Published var photos: [Photo] = []
     
     var cancellable = Set<AnyCancellable>()
-    var request = MainViewModelRequest(startPage: 1, perPage: 10)
+    var request = FeedRequest(startPage: 1, perPage: 10)
     
     init() {
         request

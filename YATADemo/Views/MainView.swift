@@ -14,33 +14,28 @@ enum MainSegmentedControlSelection: String, CaseIterable {
 }
 
 struct MainView: View {
-    @StateObject var viewModel = MainViewModel()
+    @StateObject var feed = Feed()
     @State private var currentSegment: MainSegmentedControlSelection = .feed
-        
+    
     var body: some View {
         VStack(alignment: .leading) {
-                Picker("Segmented Control", selection: $currentSegment) {
-                    ForEach(MainSegmentedControlSelection.allCases, id: \.self) {
-                        Text($0.rawValue)
-                    }
+            Picker("Segmented Control", selection: $currentSegment) {
+                ForEach(MainSegmentedControlSelection.allCases, id: \.self) {
+                    Text($0.rawValue)
                 }
-                .pickerStyle(.segmented)
-                .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                
-                mainList
-                    .onAppear { viewModel.fetch() }
+            }
+            .pickerStyle(.segmented)
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+            
+            switch currentSegment {
+            case .feed:
+                FeedView()
+            case .search:
+                SearchView()
+            }
         }
     }
     
-    var mainList: some View {
-        ScrollView {
-            MainListView(listStyle: $currentSegment,
-                         photos: $viewModel.photos,
-                         onLastItemAppeared: {
-                self.viewModel.fetch()
-            })
-        }
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {

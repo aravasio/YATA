@@ -1,5 +1,5 @@
 //
-//  MainViewModelRequest.swift
+//  FeedRequest.swift
 //  YATADemo
 //
 //  Created by Alejandro Ravasio on 09/09/2022.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class MainViewModelRequest: Request {
+class FeedRequest: Request {
     @Published var page: GalleryPage?
     var cancellables = Set<AnyCancellable>()
 
@@ -62,7 +62,7 @@ class MainViewModelRequest: Request {
             .store(in: &cancellables)
     }
     
-    private func request(_ path: String) -> AnyPublisher<MainViewModelResponse, Error>? {
+    private func request(_ path: String) -> AnyPublisher<FeedResponse, Error>? {
         guard let url = URL(string: urlPath) else { return nil }
         let request = URLRequest(url: url)
         
