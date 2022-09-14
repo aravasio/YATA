@@ -14,12 +14,11 @@ enum MainSegmentedControlSelection: String, CaseIterable {
 }
 
 struct MainView: View {
-    @ObservedObject var viewModel = MainViewModel()
+    @StateObject var viewModel = MainViewModel()
     @State private var currentSegment: MainSegmentedControlSelection = .feed
         
     var body: some View {
         VStack(alignment: .leading) {
-            Group {
                 Picker("Segmented Control", selection: $currentSegment) {
                     ForEach(MainSegmentedControlSelection.allCases, id: \.self) {
                         Text($0.rawValue)
@@ -30,7 +29,6 @@ struct MainView: View {
                 
                 mainList
                     .onAppear { viewModel.fetch() }
-            }
         }
     }
     
