@@ -28,7 +28,6 @@ struct SearchView: View {
                 }
             }
         }
-        .padding()
         .searchable(text: $viewModel.currentQuery)
     }
 }
