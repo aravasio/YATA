@@ -20,7 +20,7 @@ struct SearchItem: View {
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
         })
         .padding(0)
-        .overlay(PhotoViewOverlay(title: title, author: author), alignment: .bottomLeading)
+        .overlay(PhotoOverlay(title: title, author: author), alignment: .bottomLeading)
         .buttonStyle(.plain)
     }
 }

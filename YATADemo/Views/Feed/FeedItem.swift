@@ -7,26 +7,6 @@
 
 import SwiftUI
 
-struct PhotoViewOverlay: View {
-    var title: String
-    var author: String
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(title)
-                .font(.callout)
-                .padding(15)
-                .background(.black.opacity(0.4))
-                .foregroundColor(.white)
-            
-            Text(author)
-                .font(.callout)
-                .padding(15)
-                .background(.black.opacity(0.4))
-                .foregroundColor(.white)
-        }
-    }
-}
-
 struct FeedItem: View {
     var url: URL?
     var title: String
@@ -40,7 +20,7 @@ struct FeedItem: View {
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
         })
         .padding(0)
-        .overlay(PhotoViewOverlay(title: title, author: author), alignment: .bottomLeading)
+        .overlay(PhotoOverlay(title: title, author: author), alignment: .bottomLeading)
         .buttonStyle(.plain)
     }
 }

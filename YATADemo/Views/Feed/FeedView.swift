@@ -11,9 +11,7 @@ struct FeedView: View {
     @StateObject private var viewModel = Feed()
     @State private var currentSearchText: String = ""
     @State private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
-    
-    var onLastItemAppeared: (() -> ())? = nil
-    
+        
     var body: some View {
         ScrollView {
             LazyVGrid(columns: gridItemLayout, spacing: 5) {
