@@ -18,24 +18,24 @@ struct MainView: View {
     @State private var currentSegment: MainSegmentedControlSelection = .feed
     
     var body: some View {
-        
-        VStack(alignment: .leading) {
-            Picker("Segmented Control", selection: $currentSegment) {
-                ForEach(MainSegmentedControlSelection.allCases, id: \.self) {
-                    Text($0.rawValue)
-                }
-            }
-            .pickerStyle(.segmented)
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            
-            switch currentSegment {
-            case .feed:
+        NavigationView {
+            TabView(selection: $currentSegment) {
                 FeedView()
-            case .search:
+                    .navigationBarTitle(MainSegmentedControlSelection.feed.rawValue)
+                    .navigationBarHidden(true)
+                    .tabItem{
+                        Text(MainSegmentedControlSelection.feed.rawValue)
+                    }
+                    .tag(MainSegmentedControlSelection.feed)
+                
                 SearchView()
+                    .navigationBarTitle(MainSegmentedControlSelection.search.rawValue)
+                    .navigationBarHidden(true)
+                    .tabItem{
+                        Text(MainSegmentedControlSelection.search.rawValue)
+                    }
+                    .tag(MainSegmentedControlSelection.search)
             }
-            
-            Spacer()
         }
     }
     

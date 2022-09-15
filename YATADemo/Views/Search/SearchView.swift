@@ -13,22 +13,24 @@ struct SearchView: View {
     @State private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: gridItemLayout, spacing: 5) {
-                ForEach(viewModel.photos, id: \.id) { photo in
-                    SearchItem(url: photo.url, title: photo.title, author: photo.ownerName)
-                        .padding(15)
-                        .onAppear {
-                            if let last = viewModel.photos.last, photo.id == last.id {
-                                Task {
-                                    await viewModel.getMorePhotos()
+        NavigationView {
+            ScrollView {
+                LazyVGrid(columns: gridItemLayout, spacing: 5) {
+                    ForEach(viewModel.photos, id: \.id) { photo in
+                        SearchItem(url: photo.url, title: photo.title, author: photo.ownerName)
+                            .padding(15)
+                            .onAppear {
+                                if let last = viewModel.photos.last, photo.id == last.id {
+                                    Task {
+                                        await viewModel.getMorePhotos()
+                                    }
                                 }
                             }
-                        }
+                    }
                 }
             }
+            .searchable(text: $viewModel.currentQuery)
         }
-        .searchable(text: $viewModel.currentQuery)
     }
 }
 

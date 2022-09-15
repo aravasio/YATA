@@ -66,7 +66,6 @@ class SearchRequest: Request {
         }
         catch {
             print(error)
-            page = nil
             return []
         }
     }
@@ -78,7 +77,6 @@ class SearchRequest: Request {
         }
         catch {
             print(error)
-            page = nil
             return []
         }
     }
