@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct FeedView: View {
-    @StateObject private var viewModel = Feed()
-    @State private var currentSearchText: String = ""
+    @StateObject private var viewModel = Feed(startPage: 1, perPage: 10)
+
     @State private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
         
     var body: some View {
@@ -20,14 +20,14 @@ struct FeedView: View {
                         .padding(15)
                         .onAppear {
                             if let last = viewModel.photos.last, photo.id == last.id {
-                                viewModel.fetch()
+                                viewModel.getData()
                             }
                         }
                 }
             }
         }
         .onAppear {
-            viewModel.fetch()
+            viewModel.getData()
         }
     }
 }

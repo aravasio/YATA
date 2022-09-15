@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @StateObject private var viewModel = Search()
+    @StateObject private var viewModel = Search(startPage: 1, perPage: 10)
     @State private var currentSearchText: String = ""
     @State private var gridItemLayout = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     

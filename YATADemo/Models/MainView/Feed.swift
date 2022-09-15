@@ -1,15 +1,18 @@
 //
-//  FeedRequest.swift
+//  Feed.swift
 //  YATADemo
 //
-//  Created by Alejandro Ravasio on 09/09/2022.
+//  Created by Alejandro Ravasio on 05/09/2022.
 //
 
 import Foundation
 import Combine
+import SwiftUI
 
-class FeedRequest: Request {
-    @Published var page: GalleryPage?
+class Feed: ObservableObject {
+    @Published var photos: [Photo] = []
+    @Published private var page: GalleryPage?
+    
     var cancellables = Set<AnyCancellable>()
     
     let baseUrl: String = "https://www.flickr.com/services/rest"
@@ -43,31 +46,44 @@ class FeedRequest: Request {
         self.perPage = perPage
     }
     
-    func next() {
+    func getData() {
+        photos.isEmpty ? fetch() : next()
+    }
+    
+    private func next() {
         if hasNextpage {
             pageNumber += 1
             fetch()
         }
     }
     
-    func fetch() {
-        request(urlPath)?
-            .mapError({ (error) -> Error in
-                return error
-            })
+    private func fetch() {
+        request(urlPath, responseType: FlickrResponse.self)?
             .sink(receiveCompletion: { _ in },
-                  receiveValue: { [unowned self] response in
-                self.page = response.page
+                  receiveValue: {
+                if !$0.page.photos.isEmpty {
+                    self.page = $0.page
+                    self.photos.append(contentsOf: $0.page.photos)
+                }
             })
             .store(in: &cancellables)
     }
     
-    private func request(_ path: String) -> AnyPublisher<FeedResponse, Error>? {
+    private func request<R: Decodable>(_ path: String, responseType: R.Type) -> AnyPublisher<R, Error>? {
         guard let url = URL(string: urlPath) else { return nil }
         let request = URLRequest(url: url)
         
-        return RequestAPI.run(request)
-            .map(\.value)
+        return URLSession.shared
+            .dataTaskPublisher(for: request)
+            .tryMap { result -> R in
+                return try JSONDecoder().decode(R.self, from: result.data)
+            }
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
+    
+    private func generateError(code: Int = 1, description: String) -> Error {
+        NSError(domain: "YATAFeed", code: code, userInfo: [NSLocalizedDescriptionKey: description])
+    }
 }
+

@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-struct SearchResponse: Codable {
+struct FlickrResponse: Codable {
     var page: GalleryPage
     
     enum CodingKeys: String, CodingKey {

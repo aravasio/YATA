@@ -14,7 +14,6 @@ enum MainSegmentedControlSelection: String, CaseIterable {
 }
 
 struct MainView: View {
-    @StateObject var feed = Feed()
     @State private var currentSegment: MainSegmentedControlSelection = .feed
     
     var body: some View {

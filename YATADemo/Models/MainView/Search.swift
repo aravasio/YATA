@@ -1,5 +1,5 @@
 //
-//  SearchRequest.swift
+//  Search.swift
 //  YATADemo
 //
 //  Created by Alejandro Ravasio on 14/09/2022.
@@ -7,8 +7,11 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
-class SearchRequest: Request {
+class Search: ObservableObject {
+    @Published var currentQuery: String = ""
+    @Published var photos: [Photo] = []
     @Published var page: GalleryPage?
     var cancellables = Set<AnyCancellable>()
     
@@ -36,7 +39,6 @@ class SearchRequest: Request {
     private let startPage: Int
     private let perPage: Int
     private var pageNumber: Int
-    private var currentQuery: String
     
     private var urlPath: String {
         baseUrl + method + apiKey + extrasParam + perPageParam + currentPageParam + formatParam + currentQueryParam
@@ -51,28 +53,34 @@ class SearchRequest: Request {
         self.startPage = startPage
         self.pageNumber = startPage
         self.perPage = perPage
-        self.currentQuery = ""
+        subscribeToQueryChanges()
     }
     
-    func next() async -> [Photo] {
+    func getMorePhotos() async {
         do {
             if hasNextpage {
                 pageNumber += 1
-                return try await fetch(currentQuery)?.photos ?? []
-            } else {
-                pageNumber -= 1
-                return []
+                photos += try await fetch(currentQuery)?.photos ?? []
             }
         }
         catch {
             print(error)
-            return []
         }
     }
     
-    func new(_ query: String) async -> [Photo] {
+    private func subscribeToQueryChanges() {
+        $currentQuery.sink(receiveValue: { query in
+            Task { [unowned self] in
+                if !query.isEmpty {
+                    self.photos = await self.new(query)
+                }
+            }
+        })
+        .store(in: &cancellables)
+    }
+    
+    private func new(_ query: String) async -> [Photo] {
         do {
-            currentQuery = query
             return try await fetch(currentQuery)?.photos ?? []
         }
         catch {
@@ -86,24 +94,14 @@ class SearchRequest: Request {
             throw generateError(description: "Couldn't format URL to query")
         }
         
-        let (data, response) = try await session.data(from: url)
-        
-        guard let response = response as? HTTPURLResponse else {
-            throw generateError(description: "Bad Response")
-        }
-        
-        switch response.statusCode {
-        case (200...299), (400...499):
-            let result = try JSONDecoder().decode(SearchResponse.self, from: data).page
-            self.page = result
-            return result
-        default:
-            throw generateError(description: "A server error occured")
-        }
+        let (data, _) = try await session.data(from: url)
+        let result = try JSONDecoder().decode(FlickrResponse.self, from: data).page
+        self.page = result
+        return result
     }
     
     private func generateError(code: Int = 1, description: String) -> Error {
-        NSError(domain: "NewsAPI", code: code, userInfo: [NSLocalizedDescriptionKey: description])
+        NSError(domain: "YATASearch", code: code, userInfo: [NSLocalizedDescriptionKey: description])
     }
-    
 }
+
